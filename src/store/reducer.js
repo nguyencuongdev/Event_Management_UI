@@ -1,26 +1,14 @@
 export const initialState = {
-    currentUser: {
-        userName: '',
-        firstName: '',
-        lastName: '',
-        token: '',
-        message_error: ''
-    },
+    currentUser: null,
 }
 
 function reducer(state = initialState, action) {
     switch (action.type) {
-        case 'start_login':
+        case 'setInforUser':
+            state.currentUser = action.payload;
             return state;
-        case 'login_success':
-            return state;
-        case 'login_failure':
-            return state;
-        case 'start_logout':
-            return state;
-        case 'logout_success':
-            return state;
-        case 'logout_failure':
+        case 'clearInforUser':
+            state.currentUser = null;
             return state;
         default:
             throw new Error('Invalid action');

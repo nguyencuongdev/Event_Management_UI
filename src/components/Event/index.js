@@ -3,9 +3,9 @@ import './Event.css';
 function Event({ events }) {
     return (
         <div className="event_list">
-            {events.length > 0 && events.map((event) => {
+            {events?.length > 0 && events.map((event) => {
                 return (
-                    <div className="event-item">
+                    <div className="event">
                         <a href={"/event/" + event.slug} className="event_link">
                             <h4 className="event-name">
                                 {event.name}

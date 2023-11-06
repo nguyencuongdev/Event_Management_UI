@@ -1,11 +1,35 @@
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Context from '../../store/Context';
 import './Header.css';
-// eslint-disable-next-line no-unused-vars
-import { useState, useContext } from 'react';
-// import currentUser from '../../Context/currentUser';
+import { clearInforUser } from '../../store/actions';
 
 function Header() {
-    // eslint-disable-next-line no-unused-vars
-    const [currentUser, setCurrentUser] = useState('Cdev');
+    const [state, dispatch] = useContext(Context);
+    const navigate = useNavigate();
+
+    function redirectLoginPage() {
+        navigate('/login');
+    }
+
+    async function handleLogout() {
+        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/logout?token=' + state.currentUser?.token, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: state.currentUser?.username })
+        })
+        const data = await res.json();
+        if (data?.message === 'Đăng xuất thành công') {
+            dispatch(clearInforUser());
+            navigate('/login');
+        } else {
+            alert('Thao tác của bạn hiện không thể thực hiện!');
+        }
+    }
+
+
     return (
         <header className='header fixed-top shadow'>
             <nav className="navbar navbar-dark bg-dark flex-md-nowrap p-0">
@@ -13,11 +37,13 @@ function Header() {
                     Nền tảng sự kiện
                 </a>
                 <div className='nav-action'>
-                    <span className="navbar-organizer">{currentUser}</span>
-                    {currentUser ?
-                        <button className="nav_btn btn-logout">Đăng xuất</button>
+                    <span className="navbar-organizer">{state.currentUser?.username ?? ''}</span>
+                    {state.currentUser ?
+                        <button className="nav_btn btn-logout" onClick={handleLogout}>Đăng xuất</button>
                         :
-                        <button className="nav_btn btn-login">Đăng Nhập</button>
+                        <button className="nav_btn btn-login" onClick={redirectLoginPage}>
+                            Đăng Nhập
+                        </button>
                     }
                 </div>
             </nav>

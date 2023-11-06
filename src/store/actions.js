@@ -1,38 +1,14 @@
 
 
-export function startLogin() {
+export function setInforUser(data) {
     return {
-        type: 'start_login',
+        type: 'setInforUser',
+        payload: data,
     }
 }
-export function loginSuccess(data) {
+export function clearInforUser() {
     return {
-        type: 'login_success',
-        payload: data
-    }
-}
-export function loginFailure(message) {
-    return {
-        type: 'login_failure',
-        payload: message
-    }
-}
-export function startlogout() {
-    return {
-        type: 'start_logout',
-    }
-}
-
-export function logoutSuccess(data) {
-    return {
-        type: 'logout_success',
-        payload: data
-    }
-}
-export function logoutFailure(message) {
-    return {
-        type: 'logout_failure',
-        payload: message
+        type: 'clearInforUser',
     }
 }
 

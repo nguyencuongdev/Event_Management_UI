@@ -1,0 +1,35 @@
+.login {
+    margin-top: 100px;
+    position: relative;
+    height: calc(100% - var(--height_header));
+}
+
+.form-login {
+    width: 500px;
+    margin: 0 auto;
+    border: 2px solid var(--primary);
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+    z-index: 2;
+}
+
+.login_title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#registration_code,
+#username {
+    padding-left: 8px;
+}
+
+#login {
+    margin: 0 auto;
+}
+
+.message-error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 0;
+}
