@@ -1,9 +1,27 @@
-import './HomePage.css'
-
+import './HomePage.css';
+import { useEffect, useState } from 'react';
+import Event from '../../components/Event';
 function HomePage() {
+    const [events, setEvents] = useState([]);
+
+    //call api để lấy các sự kiện sắp tới;
+    useEffect(() => {
+        async function getEvents() {
+            try {
+                const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/events');
+                const data = await res.json();
+                setEvents(data.events);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        getEvents();
+    }, [])
+
     return (
         <div className='home'>
-            This is home page
+            <Event events={events} />
         </div>
     );
 }
