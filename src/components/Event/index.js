@@ -5,8 +5,8 @@ function Event({ events }) {
         <div className="event_list">
             {events?.length > 0 && events.map((event) => {
                 return (
-                    <div className="event">
-                        <a href={"/event/" + event.slug} className="event_link">
+                    <div className="event" key={event.id}>
+                        <a href={"/event/detail/" + event.slug} className="event_link">
                             <h4 className="event-name">
                                 {event.name}
                             </h4>

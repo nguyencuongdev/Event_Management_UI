@@ -1,6 +1,6 @@
 import './HomePage.css';
 import { useEffect, useState } from 'react';
-import Event from '../../components/Event';
+import { Event } from '../../components';
 function HomePage() {
     const [events, setEvents] = useState([]);
 

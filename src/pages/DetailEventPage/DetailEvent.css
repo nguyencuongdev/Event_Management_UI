@@ -1,0 +1,34 @@
+.event_title {
+    margin: 8px 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.event-name {
+    font-size: 32px;
+}
+
+.event-content-header {
+    display: grid;
+    grid-template-columns: 17.5% 17.5% 1fr;
+}
+
+.event-content-title {
+    text-align: center;
+    font-size: 16px;
+}
+
+.event-time {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+}
+
+.event-time-item {
+    display: inline-block;
+}
+
+.event_messae {
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
+}
