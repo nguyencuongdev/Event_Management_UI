@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Context from '../../store/Context';
-import './Header.css';
+import { StoreContext } from '../../store';
 import { clearInforUser } from '../../store/actions';
+import './Header.css';
 
 function Header() {
-    const [state, dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(StoreContext);
     const navigate = useNavigate();
 
     function redirectLoginPage() {
@@ -13,7 +13,8 @@ function Header() {
     }
 
     async function handleLogout() {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/logout?token=' + state.currentUser?.token, {
+        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/logout?token=' +
+            state.currentUser?.token, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

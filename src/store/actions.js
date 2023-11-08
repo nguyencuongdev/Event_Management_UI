@@ -1,5 +1,3 @@
-
-
 export function setInforUser(data) {
     return {
         type: 'setInforUser',

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './DetailEvent.css';
 import { Channel } from '../../components';
+import './DetailEvent.css';
 
 function DetailEventPage() {
     const { event_slug } = useParams();
@@ -14,7 +14,7 @@ function DetailEventPage() {
             setInforEvent(data);
         }
         getDetailEvent(event_slug);
-    }, [event_slug]);
+    }, [event_slug])
 
     return (
         <div className='detail_event'>

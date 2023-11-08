@@ -1,5 +1,5 @@
 .event_title {
-    margin: 8px 0 20px;
+    margin: 8px 0 40px;
     display: flex;
     justify-content: space-between;
 }
@@ -10,7 +10,7 @@
 
 .event-content-header {
     display: grid;
-    grid-template-columns: 17.5% 17.5% 1fr;
+    grid-template-columns: 10% 10% 1fr;
 }
 
 .event-content-title {

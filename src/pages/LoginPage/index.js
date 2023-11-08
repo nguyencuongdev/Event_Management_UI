@@ -1,13 +1,12 @@
 import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Context from '../../store/Context';
-import { setInforUser } from '../../store/actions';
+import { actions, StoreContext } from '../../store';
 import './LoginPage.css';
 
 
 function LoginPage() {
-    const context = useContext(Context);
+    const context = useContext(StoreContext);
     const dispatch = context[1];
     const navigate = useNavigate();
 
@@ -23,9 +22,9 @@ function LoginPage() {
     async function handleLogin(e) {
         e.preventDefault();
         if (!checkUserName)
-            ErrorUserNameRef.current.innerText = 'Invalid username';
+            ErrorUserNameRef.current.innerText = 'Username không hợp lệ';
         if (!checkRegistrationCode)
-            ErrorRegistraionCodeRef.current.innerText = 'Invalid registration code';
+            ErrorRegistraionCodeRef.current.innerText = 'Mã đăng ký không hợp lệ';
 
         if (checkRegistrationCode && checkUserName) {
             const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/login', {
@@ -40,7 +39,7 @@ function LoginPage() {
             if (data?.message) {
                 ErrorLogin.current.innerText = 'Username hoặc mã đăng ký không chính xác';
             } else {
-                dispatch(setInforUser(data));
+                dispatch(actions.setInforUser(data));
                 navigate('/');
             }
         }

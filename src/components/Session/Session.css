@@ -1,8 +1,10 @@
 .session-item {
     display: inline-block;
-    font-size: 12px;
+    font-size: 14px;
     color: #000;
-    position: relative;
+    box-sizing: border-box;
+    max-width: 41.24px;
+    overflow-x: auto;
 }
 
 .session-item:hover {

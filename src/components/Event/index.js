@@ -1,4 +1,5 @@
 import './Event.css';
+import { Link } from 'react-router-dom';
 
 function Event({ events }) {
     return (
@@ -6,7 +7,7 @@ function Event({ events }) {
             {events?.length > 0 && events.map((event) => {
                 return (
                     <div className="event" key={event.id}>
-                        <a href={"/event/detail/" + event.slug} className="event_link">
+                        <Link to={"/event/detail/" + event.slug} className="event_link">
                             <h4 className="event-name">
                                 {event.name}
                             </h4>
@@ -14,7 +15,7 @@ function Event({ events }) {
                                 <span className="event_organizer">{event.organizer?.name}</span>,
                                 <span className="event_date"> Ngày {event.date}</span>
                             </p>
-                        </a>
+                        </Link>
                     </div>
                 )
             })}
