@@ -39,7 +39,7 @@ function LoginPage() {
             if (data?.message) {
                 ErrorLogin.current.innerText = 'Username hoặc mã đăng ký không chính xác';
             } else {
-                const res2 = await fetch("http://localhost:8000/XX_NguyenManhCuong/api/v1/registrations?token=" + data.token + '&username=' + data.username)
+                const res2 = await fetch("http://localhost:8000/XX_NguyenManhCuong/api/v1/registrations?token=" + data.token)
                 const registed_list = await res2.json();
                 dispatch(actions.setInforUser(data));
                 dispatch(actions.storeRegistedEvent(registed_list));
@@ -86,7 +86,6 @@ function LoginPage() {
 
     return (
         <div className='login'>
-            <div className='overlay'></div>
             <form className='form-login' onSubmit={handleLogin} method="POST">
                 <h2 className='login_title'>Đăng nhập</h2>
                 <div className='form-group form-inline'>

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './Channel.css';
 import Room from '../Room';
 
@@ -18,4 +19,4 @@ function Channel({ data = {}, sessionRegisted = [] }) {
     );
 }
 
-export default Channel;
+export default memo(Channel);

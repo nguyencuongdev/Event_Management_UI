@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import './Session.css';
 
@@ -14,4 +15,4 @@ function Session({ data, className }) {
     );
 }
 
-export default Session;
+export default memo(Session);

@@ -1,5 +1,6 @@
 import './Room.css';
 import Session from '../Session';
+import { memo } from 'react';
 
 function Room({ data, sessionRegisted = [] }) {
     const { name, sessions } = data;
@@ -20,4 +21,4 @@ function Room({ data, sessionRegisted = [] }) {
     );
 }
 
-export default Room;
+export default memo(Room);

@@ -7,7 +7,7 @@ function Sidebar() {
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
                     <li className="nav-item">
-                        <Link className="nav-link active pl-0" to="/">Danh sách sự kiện</Link>
+                        <Link className="nav-link py-0 active pl-0" to="/">Danh sách sự kiện</Link>
                     </li>
                 </ul>
             </div>

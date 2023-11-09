@@ -1,3 +1,8 @@
 .main {
     margin-top: var(--height_header);
 }
+
+.content {
+    margin-left: 15%;
+    padding: 15px;
+}

@@ -7,7 +7,10 @@ function Event({ events }) {
             {events?.length > 0 && events.map((event) => {
                 return (
                     <div className="event" key={event.id}>
-                        <Link to={"/event/detail/" + event.slug} className="event_link">
+                        <Link
+                            to={"/event/detail/" + event.slug + "?og=" + event.organizer?.slug}
+                            className="event_link"
+                        >
                             <h4 className="event-name">
                                 {event.name}
                             </h4>

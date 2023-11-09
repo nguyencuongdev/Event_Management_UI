@@ -1,11 +1,14 @@
-import { useEffect, useState, } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { Channel } from '../../components';
 import useCheckEventRegisted from '../../hooks/useCheckEventRegisted';
 import './DetailEvent.css';
 
 function DetailEventPage() {
     const { event_slug } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const organizer_slug = searchParams.get('og');
     const [inforEvent, setInforEvent] = useState(null);
     const checkInforEventRegisted = useCheckEventRegisted(event_slug);
     const [sessionRegisted, setSessionRegisted] = useState([]);
@@ -13,12 +16,12 @@ function DetailEventPage() {
 
     useEffect(() => {
         const getDetailEvent = async (slug) => {
-            const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/organizers/demo1/events/' + slug);
+            const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/organizers/' + organizer_slug + '/events/' + slug);
             const data = await res.json();
             setInforEvent(data);
         }
         getDetailEvent(event_slug);
-    }, [event_slug])
+    }, [event_slug, organizer_slug])
 
     useEffect(() => {
         setSessionRegisted(() => {
