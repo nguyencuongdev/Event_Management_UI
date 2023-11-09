@@ -30,7 +30,6 @@ function Header() {
         }
     }
 
-
     return (
         <header className='header fixed-top shadow'>
             <nav className="navbar navbar-dark bg-dark flex-md-nowrap p-0">
@@ -38,7 +37,10 @@ function Header() {
                     Nền tảng sự kiện
                 </a>
                 <div className='nav-action'>
-                    <span className="navbar-organizer">{state.currentUser?.username ?? ''}</span>
+                    <span className="navbar-organizer">
+                        {state.currentUser ? state.currentUser?.firstname + ' ' +
+                            state.currentUser?.lastname : ''}
+                    </span>
                     {state.currentUser ?
                         <button className="nav_btn btn-logout" onClick={handleLogout}>Đăng xuất</button>
                         :

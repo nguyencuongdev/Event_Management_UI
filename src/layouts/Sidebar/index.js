@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
@@ -6,7 +7,7 @@ function Sidebar() {
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
                     <li className="nav-item">
-                        <a className="nav-link active pl-0" href="/">Danh sách sự kiện</a>
+                        <Link className="nav-link active pl-0" to="/">Danh sách sự kiện</Link>
                     </li>
                 </ul>
             </div>

@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import './Session.css';
 
-function Session({ data }) {
+function Session({ data, className }) {
 
     const timeStart = (new Date(data.start)).getHours();
     const timeEnd = (new Date(data.end)).getHours();
-    const className = `session-item session-start-${timeStart} session-end-${timeEnd} active`;
+    className += ` session-item session-start-${timeStart} session-end-${timeEnd}`;
 
     return (
         <Link className={className} to="#">

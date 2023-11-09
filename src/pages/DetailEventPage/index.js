@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, } from 'react';
 import { useParams } from 'react-router-dom';
 import { Channel } from '../../components';
+import useCheckEventRegisted from '../../hooks/useCheckEventRegisted';
 import './DetailEvent.css';
 
 function DetailEventPage() {
     const { event_slug } = useParams();
     const [inforEvent, setInforEvent] = useState(null);
+    const checkInforEventRegisted = useCheckEventRegisted(event_slug);
+    const [sessionRegisted, setSessionRegisted] = useState([]);
+
 
     useEffect(() => {
         const getDetailEvent = async (slug) => {
@@ -15,6 +19,12 @@ function DetailEventPage() {
         }
         getDetailEvent(event_slug);
     }, [event_slug])
+
+    useEffect(() => {
+        setSessionRegisted(() => {
+            return checkInforEventRegisted ? checkInforEventRegisted?.session_ids : [];
+        });
+    }, [checkInforEventRegisted])
 
     return (
         <div className='detail_event'>
@@ -55,7 +65,7 @@ function DetailEventPage() {
                 </div>
                 <div className="event-content-body">
                     {inforEvent?.channels?.length > 0 ?
-                        inforEvent?.channels.map((channel) => <Channel data={channel} key={channel.id} />)
+                        inforEvent?.channels.map((channel) => <Channel data={channel} key={channel.id} sessionRegisted={sessionRegisted} />)
                         :
                         <h4 className='event_messae'>Sự kiện không có kênh nào!</h4>
                     }

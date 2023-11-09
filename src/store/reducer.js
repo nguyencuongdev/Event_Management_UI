@@ -1,5 +1,6 @@
 export const initialState = {
     currentUser: null,
+    registedEvents: []
 }
 
 function reducer(state = initialState, action) {
@@ -9,6 +10,12 @@ function reducer(state = initialState, action) {
             return state;
         case 'clearInforUser':
             state.currentUser = null;
+            return state;
+        case 'storeRegistedEvent':
+            state.registedEvents = action.payload;
+            return state;
+        case 'clearRegistedEvents':
+            state.registedEvents = null;
             return state;
         default:
             throw new Error('Invalid action');

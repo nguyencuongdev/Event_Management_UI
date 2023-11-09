@@ -10,3 +10,16 @@ export function clearInforUser() {
     }
 }
 
+export function storeRegistedEvent(data) {
+    return {
+        type: 'storeRegistedEvent',
+        payload: data,
+    }
+}
+
+export function clearRegistedEvent() {
+    return {
+        type: 'storeRegistedEvent',
+    }
+}
+
