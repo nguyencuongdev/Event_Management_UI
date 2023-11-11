@@ -1,6 +1,5 @@
 import { HomePage, DetailEventPage, LoginPage, SignupPage } from '../pages';
 import { DefaultLayout, OnlyHeaderLayout } from '../layouts';
-import { FormRegistrationEvent } from '../components';
 
 export const public_route = [
     {
@@ -22,11 +21,6 @@ export const public_route = [
         path: '/signup',
         element: SignupPage,
         layout: OnlyHeaderLayout
-    },
-    {
-        path: '/registration',
-        element: FormRegistrationEvent,
-        layout: DefaultLayout
     }
 ]
 

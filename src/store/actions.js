@@ -23,3 +23,12 @@ export function clearRegistedEvent() {
     }
 }
 
+
+export function addRegistedEvent(data) {
+    return {
+        type: 'addRegistedEvent',
+        payload: data
+    }
+}
+
+

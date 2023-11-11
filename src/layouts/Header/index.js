@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { StoreContext } from '../../store';
 import { clearInforUser } from '../../store/actions';
 import './Header.css';
@@ -33,9 +33,9 @@ function Header() {
     return (
         <header className='header fixed-top shadow'>
             <nav className="navbar navbar-dark bg-dark flex-md-nowrap p-0">
-                <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="/">
+                <Link className="navbar-brand col-sm-3 col-md-2 mr-0" to="/">
                     Nền tảng sự kiện
-                </a>
+                </Link>
                 <div className='nav-action'>
                     <span className="navbar-organizer">
                         {state.currentUser ? state.currentUser?.firstname + ' ' +

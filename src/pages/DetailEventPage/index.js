@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { Channel } from '../../components';
-import useCheckEventRegisted from '../../hooks/useCheckEventRegisted';
+import { useEffect, useState, useRef, useContext, useCallback } from 'react';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { Channel, FormRegistrationEvent } from '../../components';
+import { useCheckEventRegisted } from '../../hooks';
+import { StoreContext } from '../../store';
 import './DetailEvent.css';
 
 function DetailEventPage() {
+    const navigate = useNavigate();
     const { event_slug } = useParams();
     const location = useLocation();
+
     const searchParams = new URLSearchParams(location.search);
     const organizer_slug = searchParams.get('og');
+    const [stateStore] = useContext(StoreContext);
+    const currentUser = stateStore.currentUser;
+
+    const formRegisterRef = useRef(null);
     const [inforEvent, setInforEvent] = useState(null);
     const checkInforEventRegisted = useCheckEventRegisted(event_slug);
+    const [sessionsOfEvent, setSessionOfEvent] = useState([]);
     const [sessionRegisted, setSessionRegisted] = useState([]);
-
 
     useEffect(() => {
         const getDetailEvent = async (slug) => {
@@ -29,11 +36,39 @@ function DetailEventPage() {
         });
     }, [checkInforEventRegisted])
 
+    useEffect(() => {
+        let sessions = [];
+        if (inforEvent) {
+            inforEvent.channels.forEach((channel) => {
+                channel.rooms.forEach((room) => {
+                    sessions = [...sessions, ...room.sessions];
+                })
+            })
+        }
+        setSessionOfEvent(sessions);
+    }, [inforEvent])
+
+    const updateSessionsRegisted = useCallback((data) => {
+        setSessionRegisted((prev) => [...prev, data]);
+    }, [])
+
+    function showFormRegistrationEvent() {
+        if (!currentUser) {
+            navigate('/login');
+            return;
+        }
+        formRegisterRef.current.onShow();
+    }
+
     return (
         <div className='detail_event'>
             <div className='event_title'>
                 <h2 className='event-name'>{inforEvent?.name}</h2>
-                <button className='btn btn-primary btn-regis_event'>Đăng ký sự kiện này</button>
+                <button className='btn btn-primary btn-regis_event'
+                    onClick={showFormRegistrationEvent}
+                >
+                    Đăng ký sự kiện này
+                </button>
             </div>
             <div className='event-content'>
                 <div className="event-content-header">
@@ -74,6 +109,12 @@ function DetailEventPage() {
                     }
                 </div>
             </div>
+            <FormRegistrationEvent ref={formRegisterRef}
+                nameEvent={inforEvent?.name}
+                tickets={inforEvent?.tickets}
+                sessions={sessionsOfEvent}
+                updateSessionsRegisted={updateSessionsRegisted}
+            />
         </div>
     );
 }

@@ -17,6 +17,10 @@ function reducer(state = initialState, action) {
         case 'clearRegistedEvents':
             state.registedEvents = null;
             return state;
+        case 'addRegistedEvent':
+            console.log(action.payload);
+            state.registedEvents.push(action.payload);
+            return state;
         default:
             throw new Error('Invalid action');
     }
