@@ -46,7 +46,7 @@ export const getRegistedEventService = async (token) => {
 
 export const getInforDetailEventService = async (organizerSlug, eventSlug) => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/organizers/' + organizerSlug + '/events/' + eventSlug);
+        const res = await fetch(process.env.REACT_APP_BASE_URL_API + '/organizers/' + organizerSlug + '/events/' + eventSlug);
         const data = await res.json();
         return data;
     }
@@ -69,7 +69,7 @@ export const getEventsService = async () => {
 
 export const regisEventService = async (organizerSlug, eventSlug, token, inforRegis) => {
     try {
-        const api_url = 'http://localhost:8000/XX_NguyenManhCuong/api/v1/organizer/' +
+        const api_url = process.env.REACT_APP_BASE_URL_API + '/organizer/' +
             organizerSlug + '/events/' + eventSlug + '/registration?token=' + token;
         const res = await fetch(api_url, {
             method: 'POST',
