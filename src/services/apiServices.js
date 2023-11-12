@@ -1,6 +1,7 @@
 export const loginService = async (userName, registrationCode) => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/login', {
+        const res = await fetch(process.env.REACT_APP_BASE_URL_API +
+            process.env.REACT_APP_API_URL_LOGIN, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -15,9 +16,27 @@ export const loginService = async (userName, registrationCode) => {
     }
 }
 
+export const logoutService = async (token) => {
+    try {
+        const res = await fetch(process.env.REACT_APP_BASE_URL_API +
+            process.env.REACT_APP_API_URL_LOGOUT + token,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export const getRegistedEventService = async (token) => {
     try {
-        const res2 = await fetch("http://localhost:8000/XX_NguyenManhCuong/api/v1/registrations?token=" + token)
+        const res2 = await fetch(process.env.REACT_APP_BASE_URL_API +
+            process.env.REACT_APP_API_URL_REGISTEDEVENTS + token)
         const registed_list = await res2.json();
         return registed_list;
     } catch (err) {
@@ -38,7 +57,8 @@ export const getInforDetailEventService = async (organizerSlug, eventSlug) => {
 
 export const getEventsService = async () => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/events');
+        const res = await fetch(process.env.REACT_APP_BASE_URL_API +
+            process.env.REACT_APP_API_URL_EVENTS);
         const data = await res.json();
         return data;
     }

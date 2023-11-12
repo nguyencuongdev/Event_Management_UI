@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { StoreContext } from '../../store';
 import { clearInforUser, clearRegistedEvent } from '../../store/actions';
+import { logoutService } from '../../services';
 import './Header.css';
 
 function Header() {
@@ -13,20 +14,13 @@ function Header() {
     }
 
     async function handleLogout() {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/logout?token=' +
-            state.currentUser?.token, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username: state.currentUser?.username })
-        })
-        const data = await res.json();
-        if (data?.message === 'Đăng xuất thành công') {
+        const res = await logoutService(state.currentUser.token);
+        if (res?.message === 'Đăng xuất thành công') {
             dispatch(clearInforUser());
             dispatch(clearRegistedEvent());
             navigate('/login');
         } else {
+            console.log(res.message);
             alert('Thao tác của bạn hiện không thể thực hiện!');
         }
     }
