@@ -13,6 +13,8 @@ function DetailEventPage() {
 
     const searchParams = new URLSearchParams(location.search);
     const organizer_slug = searchParams.get('og');
+    if (!organizer_slug) navigate('/error-page');
+
     const [stateStore] = useContext(StoreContext);
     const currentUser = stateStore.currentUser;
     const registedEvents = stateStore.registedEvents;

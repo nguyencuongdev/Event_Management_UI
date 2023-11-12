@@ -1,4 +1,4 @@
-import { HomePage, DetailEventPage, LoginPage, SignupPage } from '../pages';
+import { HomePage, DetailEventPage, LoginPage, ErrorPage } from '../pages';
 import { DefaultLayout, OnlyHeaderLayout } from '../layouts';
 
 export const public_route = [
@@ -18,8 +18,8 @@ export const public_route = [
         layout: OnlyHeaderLayout
     },
     {
-        path: '/signup',
-        element: SignupPage,
+        path: '*',
+        element: ErrorPage,
         layout: OnlyHeaderLayout
     }
 ]
