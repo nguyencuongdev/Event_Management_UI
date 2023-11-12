@@ -18,8 +18,8 @@ function reducer(state = initialState, action) {
             state.registedEvents = null;
             return state;
         case 'addRegistedEvent':
-            console.log(action.payload);
-            state.registedEvents.push(action.payload);
+            const newRegistedEvents = [...state.registedEvents, action.payload];
+            state.registedEvents = newRegistedEvents;
             return state;
         default:
             throw new Error('Invalid action');

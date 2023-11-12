@@ -2,6 +2,8 @@ import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { actions, StoreContext } from '../../store';
+import { loginService, getRegistedEventService } from '../../services';
+
 import './LoginPage.css';
 
 
@@ -27,20 +29,11 @@ function LoginPage() {
             ErrorRegistraionCodeRef.current.innerText = 'Mã đăng ký không hợp lệ';
 
         if (checkRegistrationCode && checkUserName) {
-            const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: userNameValue,
-                    registration_code: registrationCodeValue
-                })
-            })
-            const data = await res.json();
+            const data = await loginService(userNameValue, registrationCodeValue);
             if (data?.message) {
                 ErrorLogin.current.innerText = 'Username hoặc mã đăng ký không chính xác';
             } else {
-                const res2 = await fetch("http://localhost:8000/XX_NguyenManhCuong/api/v1/registrations?token=" + data.token)
-                const registed_list = await res2.json();
+                const registed_list = await getRegistedEventService(data.token);
                 dispatch(actions.setInforUser(data));
                 dispatch(actions.storeRegistedEvent(registed_list));
                 navigate('/');

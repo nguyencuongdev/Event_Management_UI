@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { StoreContext } from '../../store';
-import { clearInforUser } from '../../store/actions';
+import { clearInforUser, clearRegistedEvent } from '../../store/actions';
 import './Header.css';
 
 function Header() {
@@ -24,6 +24,7 @@ function Header() {
         const data = await res.json();
         if (data?.message === 'Đăng xuất thành công') {
             dispatch(clearInforUser());
+            dispatch(clearRegistedEvent());
             navigate('/login');
         } else {
             alert('Thao tác của bạn hiện không thể thực hiện!');

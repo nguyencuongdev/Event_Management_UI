@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Channel, FormRegistrationEvent } from '../../components';
 import { useCheckEventRegisted } from '../../hooks';
 import { StoreContext } from '../../store';
+import { getInforDetailEventService } from '../../services';
 import './DetailEvent.css';
 
 function DetailEventPage() {
@@ -14,20 +15,20 @@ function DetailEventPage() {
     const organizer_slug = searchParams.get('og');
     const [stateStore] = useContext(StoreContext);
     const currentUser = stateStore.currentUser;
+    const registedEvents = stateStore.registedEvents;
 
     const formRegisterRef = useRef(null);
     const [inforEvent, setInforEvent] = useState(null);
-    const checkInforEventRegisted = useCheckEventRegisted(event_slug);
+    const checkInforEventRegisted = useCheckEventRegisted(event_slug, registedEvents, currentUser);
     const [sessionsOfEvent, setSessionOfEvent] = useState([]);
     const [sessionRegisted, setSessionRegisted] = useState([]);
 
     useEffect(() => {
-        const getDetailEvent = async (slug) => {
-            const res = await fetch('http://localhost:8000/XX_NguyenManhCuong/api/v1/organizers/' + organizer_slug + '/events/' + slug);
-            const data = await res.json();
+        const getDetailEvent = async (organizerSlug, eventSlug) => {
+            const data = await getInforDetailEventService(organizerSlug, eventSlug);
             setInforEvent(data);
         }
-        getDetailEvent(event_slug);
+        getDetailEvent(organizer_slug, event_slug);
     }, [event_slug, organizer_slug])
 
     useEffect(() => {
