@@ -32,12 +32,16 @@ function LoginPage() {
             const data = await loginService(userNameValue, registrationCodeValue);
             if (data?.message) {
                 ErrorLogin.current.innerText = 'Username hoặc mã đăng ký không chính xác';
-            } else {
-                const registed_list = await getRegistedEventService(data.token);
-                dispatch(actions.setInforUser(data));
-                dispatch(actions.storeRegistedEvent(registed_list));
-                navigate('/');
+                return;
             }
+            const registed_list = await getRegistedEventService(data.token);
+            dispatch(actions.setInforUser(data));
+            dispatch(actions.storeRegistedEvent(registed_list));
+            if (window.history.length > 1) {
+                navigate(-1);
+                return;
+            }
+            navigate('/');
         }
     }
 
