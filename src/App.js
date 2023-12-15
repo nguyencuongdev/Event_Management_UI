@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import './assets/css/bootstrap.css';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { public_router } from './routers';
+import { StoreProvider } from './store';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <StoreProvider>
+        <div className="App">
+          <Routes>
+            {public_router.map((route, index) => {
+              let Layout = 'div';
+              if (route.layout) Layout = route.layout;
+              return <Route path={route.path} element={
+                <Layout>
+                  {route.element}
+                </Layout>
+              }
+                key={index}
+              />
+            })}
+          </Routes>
+        </div>
+      </StoreProvider>
+    </BrowserRouter>
   );
 }
 
