@@ -1,5 +1,5 @@
 import './DetailEventPage.css';
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext, useRef,useCallback } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../store';
 import { useCheckEvent } from '../../hooks';
@@ -16,6 +16,7 @@ function DetailEventPage() {
     if (!organizerSlug) navigate('/error-page-404');
 
     const [state] = useContext(StoreContext);
+    console.log(state);
     const currentUser = state.currentUser;
     const listRegistedEvent = state.listRegistedEvent;
     const checkRegistedEvent = useCheckEvent(currentUser, eventSlug, listRegistedEvent);
@@ -53,6 +54,10 @@ function DetailEventPage() {
             setListSessionRegisted(checkRegistedEvent.sessionIds);
         }
     }, [checkRegistedEvent])
+
+    const updateSessionsRegisted = useCallback((data) => {
+        setListSessionRegisted((prev) => [...prev, data]);
+    }, [])
 
     const handleShowFormRegisterEvent = () => {
         if (!currentUser) return navigate('/login');
@@ -103,7 +108,7 @@ function DetailEventPage() {
                 <div className="channels">
                     {inforEvent?.channels.length > 0 ?
                         inforEvent.channels.map((channel, index) =>
-                            <Channel data={channel} key={index}
+                            <Channel data={channel} key={index} sessionsRegisted={listSessionRegisted}
                             />)
                         :
                         <h3 className='detail-message text-center p-4'>
@@ -117,6 +122,7 @@ function DetailEventPage() {
                 tickets={inforEvent?.tickets}
                 ref={formRegisterEventRef}
                 sessions={sessionsOfEvent}
+                updateSessionsRegisted={updateSessionsRegisted}
             />
         </div>
     )

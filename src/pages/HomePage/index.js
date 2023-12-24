@@ -11,7 +11,6 @@ function HomePage() {
     useEffect(() => {
         const getEvents = async () => {
             let list_events = await getEventsService();
-            console.log(list_events);
             setEvents(list_events);
         }
         getEvents();

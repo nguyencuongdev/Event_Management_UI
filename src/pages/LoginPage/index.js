@@ -74,7 +74,7 @@ function LoginPage() {
                 return;
             }
             dispath(actions.storeInforUser(data));
-            const listRegistedEvent = await getListRegistedEventService(data?.login_token);
+            const listRegistedEvent = await getListRegistedEventService(data?.token);
             dispath(actions.storeListRegistedEvent(listRegistedEvent));
             (window.history.length > 1) ? navigate(-1) : navigate('/');
         }

@@ -8,13 +8,14 @@ import { StoreContext } from '../../store';
 
 function Header() {
     const navigate = useNavigate();
-    const [state, dispath] = useContext(StoreContext);
+    const [state, dispatch] = useContext(StoreContext);
     const currentUser = state?.currentUser;
     const handleLogout = async (e) => {
         e.preventDefault();
-        const res = await logoutService(currentUser?.login_token);
+        const res = await logoutService(currentUser?.token);
         if (res?.message === 'Đăng xuất thành công') {
-            dispath(actions.clearInforUser());
+            dispatch(actions.clearInforUser());
+            dispatch(actions.clearListRegistedEvent());
             navigate('/login');
             return;
         }

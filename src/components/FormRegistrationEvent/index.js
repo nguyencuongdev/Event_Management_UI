@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { registrationEventService } from '../../services';
 import { StoreContext, actions } from '../../store';
 
-const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = [] }, ref) => {
+const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = [], updateSessionsRegisted }, ref) => {
 
     const formRegisterRef = useRef(null);
     const btnPurchase = useRef(null);
@@ -26,7 +26,6 @@ const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = 
 
     const countRegistrationSession = useRef(0);
     const [typeTicket, setTypeTicket] = useState(null);
-    const [registrationSession, setRegistrationSession] = useState([]);
     const [registrationSessionIds, setRegistrationSessionIds] = useState([]);
     const [costTicket, setCostTicket] = useState(0);
     const [addedSessionsCost, setAddedSessionsCost] = useState(0);
@@ -42,7 +41,6 @@ const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = 
             }
         })
         setRegistrationSessionIds(idsTypeTalk);
-        setRegistrationSession(sessionsTypeTalk);
     }, [sessions])
 
     const handleChoiceTicket = (e) => {
@@ -75,37 +73,16 @@ const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = 
         }
 
         const id = +eParent.getAttribute('data-id');
-        const room_id = eParent.getAttribute('data-target');
-        const title = eParent.innerText;
-        const speaker = eParent.querySelector('.session-speaker').value;
-        const start = eParent.querySelector('.session-start').value;
-        const end = eParent.querySelector('.session-end').value;
-        const description = eParent.querySelector('.session-description').value;
-        const type = eParent.getAttribute('data-type');
         const cost = +eParent.getAttribute('data-cost');
 
         if (!e.target.checked) {
             countRegistrationSession.current--;
             setRegistrationSessionIds((prev) => prev.filter((sessionId) => sessionId !== id));
-            setRegistrationSession((prev) => prev.filter((session) => session.id !== id))
             setAddedSessionsCost((prev) => prev - cost);
             setTotalCost((prev) => prev - cost);
             return;
         }
         countRegistrationSession.current++;
-        setRegistrationSession((prev) => {
-            return [...prev, {
-                id,
-                room_id,
-                title,
-                speaker,
-                start,
-                end,
-                description,
-                type,
-                cost,
-            }]
-        })
         setRegistrationSessionIds((prev) => [...prev, id]);
         setAddedSessionsCost((prev) => prev + cost);
         setTotalCost((prev) => prev + cost);
@@ -119,7 +96,6 @@ const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = 
         setAddedSessionsCost(0);
         setTotalCost(0);
         setRegistrationSessionIds((prev) => prev.slice(0, amountRegistrationSessionDefault));
-        setRegistrationSession((prev) => prev.filter((item) => item.type !== 'workshop'));
         countRegistrationSession.current = 0;
         formRegisterRef.current.classList.remove('show');
     }
@@ -138,12 +114,13 @@ const FormRegistrationEvent = forwardRef(({ name = '', tickets = [], sessions = 
                     break;
                 case 'Đăng ký thành công':
                     closeFormRegister();
+                    updateSessionsRegisted(registrationSessionIds);
                     dispath(actions.addRegistedEvent({
                         event: {
                             name,
                             slug: eventSlug,
                         },
-                        session_ids: registrationSession
+                        session_ids: registrationSessionIds
                     }))
                     break;
                 case 'Người dùng đã đăng ký':

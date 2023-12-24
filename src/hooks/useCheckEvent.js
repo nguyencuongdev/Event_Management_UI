@@ -18,21 +18,18 @@ function useCheckEvent(currentUser, eventSlug, listRegistedEvent = []) {
             sessionIds: []
         };
 
+        //Lặp qua các thông tin đã đăng ký kiểm tra xem đã đăng ký chưa;
         listRegistedEvent.forEach((item) => {
             if (item.event.slug === eventSlug) {
                 check = true;
                 event.name = item.event.name;
                 event.slug = eventSlug;
-                event.date = item.event.date;
-                event.organizer = item.event.organizer;
-                const listIdOfSessions = item.session_ids.map((session) => session.id);
+                const listIdOfSessions = item.session_ids.map(id => id);
                 event.sessionIds = [...event.sessionIds, ...listIdOfSessions];
             }
         });
-
         (check) ? setInforEvent(event) : setInforEvent(null);
     }, [currentUser, eventSlug, listRegistedEvent]);
-
     return inforEvent;
 }
 

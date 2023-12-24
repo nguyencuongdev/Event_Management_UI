@@ -1,7 +1,7 @@
 
 export const getEventsService = async () => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong_ABC/api/v1/events');
+        const res = await fetch('http://localhost:8000/api/v1/events');
         const data = await res.json();
         return data.events;
     } catch (err) {
@@ -12,7 +12,7 @@ export const getEventsService = async () => {
 
 export const getInforEventsService = async (organizerSlug, eventSlug) => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong_ABC/api/v1/organizers/' + organizerSlug + '/events/' + eventSlug);
+        const res = await fetch('http://localhost:8000/api/v1/organizers/' + organizerSlug + '/events/' + eventSlug);
         const data = await res.json();
         return data;
     } catch (err) {
@@ -22,7 +22,7 @@ export const getInforEventsService = async (organizerSlug, eventSlug) => {
 
 export const loginService = async (lastName = '', registrationCode = '') => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong_ABC/api/v1/login', {
+        const res = await fetch('http://localhost:8000/api/v1/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -39,7 +39,7 @@ export const loginService = async (lastName = '', registrationCode = '') => {
 
 export const logoutService = async (token = '') => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong_ABC/api/v1/logout?token=' + token,
+        const res = await fetch('http://localhost:8000/api/v1/logout?token=' + token,
             {
                 method: 'POST'
             }
@@ -53,7 +53,7 @@ export const logoutService = async (token = '') => {
 
 export const getListRegistedEventService = async (token = '') => {
     try {
-        const res = await fetch('http://localhost:8000/XX_NguyenManhCuong_ABC/api/v1/registrations?token=' + token);
+        const res = await fetch('http://localhost:8000/api/v1/registrations?token=' + token);
         const data = await res.json();
         return data.registrations;
     }
@@ -66,7 +66,7 @@ export const getListRegistedEventService = async (token = '') => {
 export const registrationEventService =
     async (organizerSlug, eventSlug, token = '', payload) => {
         try {
-            const res = await fetch('http://localhost:8000/XX_NguyenManhCuong_ABC/api/v1/organizers/' + organizerSlug + '/events/' + eventSlug + '/registration?token=' + token,
+            const res = await fetch('http://localhost:8000/api/v1/organizers/' + organizerSlug + '/events/' + eventSlug + '/registration?token=' + token,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
