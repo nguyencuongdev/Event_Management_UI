@@ -15,7 +15,7 @@ function reducer(state = initialState, action) {
             state.registedEvents = action.payload;
             return state;
         case 'clearRegistedEvents':
-            state.registedEvents = null;
+            state.registedEvents = [];
             return state;
         case 'addRegistedEvent':
             const newRegistedEvents = [...state.registedEvents, action.payload];
